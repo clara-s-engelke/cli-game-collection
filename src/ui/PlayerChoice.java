@@ -3,7 +3,7 @@ package ui;
 import java.util.List;
 
 public class PlayerChoice {
-	private PlayerInput input;
+	private final PlayerInput input;
 	
 	public PlayerChoice() {
 		input = new PlayerInput();
@@ -23,5 +23,9 @@ public class PlayerChoice {
 			System.out.println("Not a valid number!");
 			return null;
 		}
+	}
+
+	public PlayerInput getInput(){
+		return input;
 	}
 }

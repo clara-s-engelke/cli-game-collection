@@ -20,7 +20,7 @@ public class MenuHandler {
 	
 	public boolean menuLoop(String choice) {
 		switch(choice) {
-		case "Number Guesser" -> {NumberGuesser.guessing();
+		case "Number Guesser" -> {guesser.guessing();
 								return true;}
 		case "Exit" -> {return false;}
 		default -> {System.out.println("Error");
