@@ -1,6 +1,6 @@
 package numberGuesser;
 
-public enum guessResult {
+public enum GuessResult {
     TOO_SMALL{
       public String print(){
           return "Too small!";
