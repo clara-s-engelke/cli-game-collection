@@ -2,6 +2,8 @@ package numberGuesser;
 
 import ui.PlayerChoice;
 
+import java.util.List;
+
 public class NumberGuesser {
 	private final PlayerChoice player;
 
@@ -10,7 +12,8 @@ public class NumberGuesser {
 	}
 
 	public void game(){
-		int secretNum = (int) (Math.random()*100);
+		Difficulty difficulty = player.choose(List.of(Difficulty.values()));
+		int secretNum = (int) (Math.random()* difficulty.getMaxNum());
 		boolean running = true;
 		int tries = 0;
 		do{
@@ -30,10 +33,10 @@ public class NumberGuesser {
 			if (result == guessResult.CORRECT) {
 				System.out.println("You guessed the number in " + tries + " tries!");
 			} else{
-				System.out.println("You have " + (10 - tries) + " tries left.");
+				System.out.println("You have " + (difficulty.getMaxTries() - tries) + " tries left.");
 			}
 
-		}while(running && tries < 10);
+		}while(running && tries < difficulty.getMaxTries());
 	}
 
 	public guessResult guessing(int secretNum) {
