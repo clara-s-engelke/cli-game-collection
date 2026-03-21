@@ -1,47 +1,24 @@
 package numberGuesser;
 
 public enum Difficulty {
-    EASY{
-        @Override
-        public int getMaxNum() {
-            return 50;
-        }
-        @Override
-        public int getMaxTries() {
-            return 15;
-        }
-    },
-    NORMAL{
-        @Override
-        public int getMaxNum() {
-            return 100;
-        }
-        @Override
-        public int getMaxTries() {
-            return 10;
-        }
-    },
-    HARD{
-        @Override
-        public int getMaxNum() {
-            return 1000;
-        }
-        @Override
-        public int getMaxTries() {
-            return 10;
-        }
-    },
-    IMPOSSIBLE{
-        @Override
-        public int getMaxNum() {
-            return 1000;
-        }
-        @Override
-        public int getMaxTries() {
-            return 5;
-        }
-    };
+    EASY(50, 15),
+    NORMAL(100, 10),
+    HARD(1000, 10),
+    IMPOSSIBLE(1000, 5);
 
-    public abstract int getMaxTries();
-    public abstract int getMaxNum();
+    private final int maxNum;
+    private final int maxTries;
+
+    Difficulty(int maxNum, int maxTries) {
+        this.maxNum = maxNum;
+        this.maxTries = maxTries;
+    }
+
+    public int getMaxTries() {
+        return maxTries;
+    }
+
+    public int getMaxNum() {
+        return maxNum;
+    }
 }

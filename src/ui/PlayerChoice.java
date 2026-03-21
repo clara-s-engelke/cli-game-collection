@@ -20,7 +20,6 @@ public class PlayerChoice {
 		if(input.inBounds(0, options.size(), choice)) {
 			return options.get(choice);
 		} else {
-			System.out.println("Not a valid number!");
 			return null;
 		}
 	}

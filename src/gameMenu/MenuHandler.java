@@ -19,12 +19,23 @@ public class MenuHandler {
 	}
 	
 	public boolean menuLoop(String choice) {
-		switch(choice) {
-		case "Number Guesser" -> {guesser.game();
-								return true;}
-		case "Exit" -> {return false;}
-		default -> {System.out.println("Error");
-					return false;}
+		if (choice == null) {
+			System.out.println("Not a valid number!");
+			return true;
+		} else {
+			switch (choice) {
+				case "Number Guesser" -> {
+					guesser.game();
+					return true;
+				}
+				case "Exit" -> {
+					return false;
+				}
+				default -> {
+					System.out.println("Error");
+					return false;
+				}
+			}
 		}
 	}
 }

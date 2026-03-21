@@ -19,17 +19,13 @@ public class PlayerInput {
 		return num;
 	}
 	
-	public String readString() {
-		String string = null;
-		string = s.nextLine();
-		return string;
-	}
+//	public String readString() {
+//		String string = null;
+//		string = s.nextLine();
+//		return string;
+//	}
 	
 	public boolean inBounds(double min, double max, double num) {
-		if(num>=min && num<= max) {
-			return true;
-		} else {
-			return false;
-		}
+        return num >= min && num < max;
 	}
 }
