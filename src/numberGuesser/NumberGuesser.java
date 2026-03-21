@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class NumberGuesser {
 	private final PlayerChoice player;
-	Map<Difficulty, Highscore> highscores;
+	private final Map<Difficulty, Highscore> highscores;
 
 	public NumberGuesser() {
 		player = new PlayerChoice();
@@ -20,6 +20,7 @@ public class NumberGuesser {
 
 	public void game() {
 		Difficulty difficulty = setDifficulty();
+		if(difficulty == Difficulty.EXIT)  return;
 		int secretNum = (int) (Math.random() * difficulty.getMaxNum());
 		boolean running;
 		int tries = 0;
@@ -36,8 +37,9 @@ public class NumberGuesser {
 			System.out.println("You lose! The number was " + secretNum);
 		} else {
 			System.out.println("You won, congrats! You guessed the number in " + tries + " tries!");
-			if (newHighScore(difficulty, tries)) {
+			if (highscores.get(difficulty).isBetter(tries)) {
 				System.out.println("That's a new high score for the difficulty " + difficulty);
+				highscores.get(difficulty).update(tries);
 			} else {
 				System.out.println("Sorry, no new high score this time! The current highscore is: "
 						+ highscores.get(difficulty).getScore());
@@ -69,21 +71,9 @@ public class NumberGuesser {
 		return result != GuessResult.CORRECT;
 	}
 
-	private boolean newHighScore(Difficulty difficulty, int score){
-			return highscores.get(difficulty).compare(score);
-	}
-
 	private Difficulty setDifficulty(){
-		boolean valid;
 		Difficulty difficulty;
-		do {
-			valid = true;
-			difficulty = player.choose(List.of(Difficulty.values()));
-			if (difficulty == null) {
-				System.out.println("Not a valid number!");
-				valid = false;
-			}
-		} while (!valid);
+		difficulty = player.choose(List.of(Difficulty.values()));
 		return difficulty;
 	}
 }

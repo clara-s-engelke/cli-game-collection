@@ -15,12 +15,14 @@ public class PlayerChoice {
 			System.out.println(i + " - " + option);
 			i++;
 		}
+		while(true){
 		System.out.print("Please choose a number: ");
 		int choice = input.readInt()-1;
 		if(input.inBounds(0, options.size(), choice)) {
 			return options.get(choice);
-		} else {
-			return null;
+		} else{
+			System.out.println("Not a valid number! ");
+		}
 		}
 	}
 

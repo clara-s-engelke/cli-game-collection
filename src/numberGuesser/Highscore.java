@@ -7,13 +7,12 @@ public class Highscore {
         this.highscore = score;
     }
 
-    public boolean compare(int score){
-        if(score < highscore){
-            highscore = score;
-            return true;
-        } else{
-            return false;
-        }
+    public boolean isBetter(int score){
+       return score < highscore;
+    }
+
+    public void update(int score){
+        highscore = score;
     }
 
     public int getScore(){

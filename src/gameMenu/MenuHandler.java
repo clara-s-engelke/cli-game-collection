@@ -19,10 +19,6 @@ public class MenuHandler {
 	}
 	
 	public boolean menuLoop(String choice) {
-		if (choice == null) {
-			System.out.println("Not a valid number!");
-			return true;
-		} else {
 			switch (choice) {
 				case "Number Guesser" -> {
 					guesser.game();
@@ -37,5 +33,4 @@ public class MenuHandler {
 				}
 			}
 		}
-	}
 }
