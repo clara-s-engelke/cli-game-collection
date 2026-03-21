@@ -2,16 +2,20 @@ package numberGuesser;
 
 import ui.PlayerChoice;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NumberGuesser {
 	private final PlayerChoice player;
-	private final List<Highscore> highscores;
+	Map<Difficulty, Highscore> highscores;
 
 	public NumberGuesser() {
 		player = new PlayerChoice();
-		highscores = new ArrayList<>();
+		highscores = new HashMap<>();
+		for(Difficulty difficulty : Difficulty.values()){
+			highscores.put(difficulty, new Highscore(difficulty.getMaxTries()));
+		}
 	}
 
 	public void game() {
@@ -35,7 +39,8 @@ public class NumberGuesser {
 			if (newHighScore(difficulty, tries)) {
 				System.out.println("That's a new high score for the difficulty " + difficulty);
 			} else {
-				System.out.println("Sorry, no new high score this time!");
+				System.out.println("Sorry, no new high score this time! The current highscore is: "
+						+ highscores.get(difficulty).getScore());
 			}
 		}
 	}
@@ -65,13 +70,7 @@ public class NumberGuesser {
 	}
 
 	private boolean newHighScore(Difficulty difficulty, int score){
-			for(Highscore highscore : highscores){
-				if (highscore.getDifficulty() == difficulty) {
-					return highscore.compare(score);
-					}
-				}
-			highscores.add(new Highscore(difficulty, score));
-			return true;
+			return highscores.get(difficulty).compare(score);
 	}
 
 	private Difficulty setDifficulty(){

@@ -1,11 +1,9 @@
 package numberGuesser;
 
 public class Highscore {
-    private final Difficulty difficulty;
     private int highscore;
 
-    public Highscore(Difficulty difficulty, int score){
-        this.difficulty = difficulty;
+    public Highscore(int score){
         this.highscore = score;
     }
 
@@ -18,7 +16,7 @@ public class Highscore {
         }
     }
 
-    public Difficulty getDifficulty(){
-        return difficulty;
+    public int getScore(){
+        return highscore;
     }
 }
