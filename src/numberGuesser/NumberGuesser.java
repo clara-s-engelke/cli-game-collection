@@ -9,89 +9,69 @@ public class NumberGuesser {
 	private final PlayerChoice player;
 	private final List<Highscore> highscores;
 
-	public NumberGuesser(){
+	public NumberGuesser() {
 		player = new PlayerChoice();
 		highscores = new ArrayList<>();
 	}
 
-	public void game(){
+	public void game() {
 		Difficulty difficulty = setDifficulty();
-		int secretNum = (int) (Math.random()* difficulty.getMaxNum());
+		int secretNum = (int) (Math.random() * difficulty.getMaxNum());
 		boolean running;
 		int tries = 0;
-		System.out.println(secretNum);
 
-		do{
+		do {
 			running = round(secretNum);
 			tries++;
 			if (running) {
-				System.out.println("You have " + (difficulty.getMaxTries() -  tries) + " tries left!");
+				System.out.println("You have " + (difficulty.getMaxTries() - tries) + " tries left!");
 			}
-		}while(running && tries < difficulty.getMaxTries());
+		} while (running && tries < difficulty.getMaxTries());
 
 		if (running) {
 			System.out.println("You lose! The number was " + secretNum);
-		} else{
+		} else {
 			System.out.println("You won, congrats! You guessed the number in " + tries + " tries!");
-			if (newHighScore(difficulty, tries)){
+			if (newHighScore(difficulty, tries)) {
 				System.out.println("That's a new high score for the difficulty " + difficulty);
-			} else{
+			} else {
 				System.out.println("Sorry, no new high score this time!");
 			}
 		}
 	}
 
-	private guessResult guess(int secretNum) {
-			System.out.print("What's your guess?");
-			int guess = player.getInput().readInt();
+	private GuessResult guess(int secretNum) {
+		System.out.print("What's your guess?");
+		int guess = player.getInput().readInt();
 		if (guess == -1) {
 			return null;
-		}else if (guess < secretNum) {
-				return guessResult.TOO_SMALL;
-			} else if (guess > secretNum) {
-				return guessResult.TOO_BIG;
-			} else{
-				return guessResult.CORRECT;
-			}
+		} else if (guess < secretNum) {
+			return GuessResult.TOO_SMALL;
+		} else if (guess > secretNum) {
+			return GuessResult.TOO_BIG;
+		} else {
+			return GuessResult.CORRECT;
+		}
 	}
 
-	private boolean round(int secretNum){
-		guessResult result = guess(secretNum);
-		if(result == null){
-			System.out.println("Try Again!");
-			return round(secretNum);
-		} else{
-			System.out.println(result.print());
-            return result != guessResult.CORRECT;
-		}
-
+	private boolean round(int secretNum) {
+		GuessResult result;
+		do {
+			result = guess(secretNum);
+			if (result == null) System.out.println("Try Again!");
+		} while (result == null);
+		System.out.println(result.print());
+		return result != GuessResult.CORRECT;
 	}
 
 	private boolean newHighScore(Difficulty difficulty, int score){
-		if(highScoreExists(difficulty)){
-			Highscore temp = null;
 			for(Highscore highscore : highscores){
 				if (highscore.getDifficulty() == difficulty) {
-					temp = highscore;
+					return highscore.compare(score);
 					}
 				}
-            return temp.compare(score);
-			} else{
 			highscores.add(new Highscore(difficulty, score));
 			return true;
-		}
-	}
-
-
-	private boolean highScoreExists(Difficulty difficulty){
-		boolean exists = false;
-		for(Highscore highscore : highscores){
-			if (highscore.getDifficulty() == difficulty) {
-				exists = true;
-				break;
-			}
-		}
-		return exists;
 	}
 
 	private Difficulty setDifficulty(){
