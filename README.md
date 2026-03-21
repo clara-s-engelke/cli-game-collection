@@ -11,7 +11,8 @@ This project was created to practice core programming concepts such as object-or
 ## 💡 INCLUDED GAMES
 Games that are currently included and their features:
 - Number Guesser
-  - currently only displaying a random number
+  - numbers between 0 and 100
+  - hints on the number
 
 ---
 
@@ -22,7 +23,7 @@ java-cli-games/
     ├── gameMenu
     |   ├── Main
     | 	└── MenuHandler
-    ├── numberGuesser
+    ├── games
     |   └── NumberGuesser
     ├── ui
       	├── Menus
@@ -37,7 +38,7 @@ The structure may evolve as the project progresses
 ## 🔧 TOOLS
 Following tools are/were used in this repo:
 - Java (21 JDK)
-- Eclipse IDE (2025)
+- IntelliJ IDEA (2025)
 - Git/GitHub
 
 ---
