@@ -1,5 +1,6 @@
 package numberGuesser;
 
+import game.Game;
 import ui.PlayerChoice;
 
 import java.util.ArrayList;
