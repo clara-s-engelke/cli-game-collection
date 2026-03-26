@@ -10,13 +10,13 @@ public class PlayerInput {
 	}
 	
 	public int readInt() {
-		int num = -1;
-		try {
-			num = Integer.parseInt(s.nextLine());
-		} catch (NumberFormatException nfe) {
-			System.out.println("Error: Not a number!");
+		while (true) {
+			try {
+				return Integer.parseInt(s.nextLine());
+			} catch (NumberFormatException nfe) {
+				System.out.println("Error: Not a number!");
+			}
 		}
-		return num;
 	}
 	
 //	public String readString() {
@@ -25,7 +25,7 @@ public class PlayerInput {
 //		return string;
 //	}
 	
-	public boolean inBounds(double min, double max, double num) {
+	public boolean inBounds(int min, int max, int num) {
         return num >= min && num < max;
 	}
 }

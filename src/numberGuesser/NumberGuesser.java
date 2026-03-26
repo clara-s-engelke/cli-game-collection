@@ -7,74 +7,118 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class NumberGuesser {
+public class NumberGuesser implements Game {
 	private final PlayerChoice player;
 	private final Map<Difficulty, Highscore> highscores;
 
-	public NumberGuesser() {
-		player = new PlayerChoice();
+	private int secretNum;
+	private int attempts;
+	private boolean won;
+	private Difficulty difficulty;
+
+
+	public NumberGuesser(PlayerChoice player) {
+		this.player = player;
 		highscores = new HashMap<>();
 		for(Difficulty difficulty : Difficulty.values()){
 			highscores.put(difficulty, new Highscore(difficulty.getMaxTries()));
 		}
 	}
 
-	public void game() {
-		Difficulty difficulty = setDifficulty();
-		if(difficulty == Difficulty.EXIT)  return;
-		int secretNum = (int) (Math.random() * difficulty.getMaxNum());
-		boolean running;
-		int tries = 0;
-
-		do {
-			running = round(secretNum);
-			tries++;
-			if (running) {
-				System.out.println("You have " + (difficulty.getMaxTries() - tries) + " tries left!");
-			}
-		} while (running && tries < difficulty.getMaxTries());
-
-		if (running) {
-			System.out.println("You lose! The number was " + secretNum);
-		} else {
-			System.out.println("You won, congrats! You guessed the number in " + tries + " tries!");
-			if (highscores.get(difficulty).isBetter(tries)) {
-				System.out.println("That's a new high score for the difficulty " + difficulty);
-				highscores.get(difficulty).update(tries);
-			} else {
-				System.out.println("Sorry, no new high score this time! The current highscore is: "
-						+ highscores.get(difficulty).getScore());
-			}
+	@Override
+	public void start() {
+		init();
+		if (difficulty == Difficulty.EXIT) {
+			return;
 		}
+		printInstructions();
+		while (!isGameOver()) {
+			gameState();
+			int num = guess();
+			GuessResult result = getResult(num);
+			handleResult(result);
+		}
+		end();
+		reset();
 	}
 
-	private GuessResult guess(int secretNum) {
-		System.out.print("What's your guess?");
-		int guess = player.getInput().readInt();
-		if (guess == -1) {
-			return null;
-		} else if (guess < secretNum) {
+	@Override
+	public void printInstructions() {
+
+	}
+
+	private void init(){
+		difficulty = setDifficulty();
+		secretNum = (int) (Math.random()*(difficulty.getMaxNum()+1));
+		attempts = 0;
+		won = false;
+	}
+
+	private boolean isGameOver(){
+		return (won || attempts >= difficulty.getMaxTries());
+	}
+
+	private void gameState(){
+		System.out.println("The biggest possible number is: " + difficulty.getMaxNum());
+		System.out.println("You have: " + (difficulty.getMaxTries() - attempts) + " left");
+	}
+
+	private int guess(){
+		System.out.println("What is your guess?");
+		return player.getInput().readInt();
+	}
+
+	private GuessResult getResult(int guess){
+		attempts++;
+		if(guess < secretNum){
 			return GuessResult.TOO_SMALL;
-		} else if (guess > secretNum) {
+		} else if(guess > secretNum){
 			return GuessResult.TOO_BIG;
-		} else {
+		} else{
 			return GuessResult.CORRECT;
 		}
 	}
 
-	private boolean round(int secretNum) {
-		GuessResult result;
-		do {
-			result = guess(secretNum);
-			if (result == null) System.out.println("Try Again!");
-		} while (result == null);
+	private void handleResult(GuessResult result){
 		System.out.println(result.print());
-		return result != GuessResult.CORRECT;
+		if(result == GuessResult.CORRECT){
+			won = true;
+		}
 	}
 
+	private void end(){
+		if (won) {
+			System.out.println("Congratulations, you won in " + attempts + " attemps");
+			if(checkHighscore()){
+				System.out.println("Thats a new highscore for that difficulty!");
+			} else{
+				System.out.println("The highscore for this difficulty is: " + highscores.get(difficulty).getScore());
+			}
+		} else{
+			System.out.println("You lost - what a shame, maybe next time :D");
+		}
+	}
+
+	@Override
+	public void reset() {
+		won = false;
+		attempts = 0;
+		secretNum = -1;
+	}
+
+//Util
 	private Difficulty setDifficulty(){
 		Difficulty difficulty;
 		difficulty = player.choose(List.of(Difficulty.values()));
 		return difficulty;
+	}
+
+	private boolean checkHighscore(){
+		if(highscores.get(difficulty).isBetter(attempts)){
+			highscores.get(difficulty).update(attempts);
+			return true;
+		} else{
+			return false;
+		}
 	}
 }

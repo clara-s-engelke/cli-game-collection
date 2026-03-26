@@ -5,13 +5,13 @@ import ui.Menus;
 import ui.PlayerChoice;
 
 public class MenuHandler {
-	NumberGuesser guesser;
-	PlayerChoice menu;
+	private final NumberGuesser guesser;
+	private final PlayerChoice menu;
 	
 	
-	public MenuHandler() {
-		guesser = new NumberGuesser();
-		menu = new PlayerChoice();
+	public MenuHandler(PlayerChoice menu) {
+		guesser = new NumberGuesser(menu);
+		this.menu = menu;
 	}
 	
 	public String showMainMenu() {
@@ -21,7 +21,7 @@ public class MenuHandler {
 	public boolean menuLoop(String choice) {
 			switch (choice) {
 				case "Number Guesser" -> {
-					guesser.game();
+					guesser.start();
 					return true;
 				}
 				case "Exit" -> {
