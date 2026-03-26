@@ -44,6 +44,11 @@ public class NumberGuesser implements Game {
 
 	@Override
 	public void printInstructions() {
+		System.out.println("This is a number guessing game");
+		System.out.println("The idea is simple: guess the secret number.");
+		System.out.println("After every guess, you'll get feedback on your guess" +
+				" - was your number too big, too small or correct");
+		System.out.println("You have a limited amount of attempts, depending on your difficulty");
 
 	}
 
@@ -59,7 +64,9 @@ public class NumberGuesser implements Game {
 	}
 
 	private void gameState(){
-		System.out.println("The biggest possible number is: " + difficulty.getMaxNum());
+		if (attempts == 0) {
+			System.out.println("The biggest possible number for your game is: " + difficulty.getMaxNum());
+		}
 		System.out.println("You have: " + (difficulty.getMaxTries() - attempts) + " left");
 	}
 

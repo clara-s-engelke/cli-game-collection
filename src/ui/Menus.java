@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Menus {
 	public static List<String> mainMenu(){
-		List<String> mainMenu = new ArrayList<String>();
+		List<String> mainMenu = new ArrayList<>();
 		mainMenu.add("Number Guesser");
 		mainMenu.add("Exit");
 		
