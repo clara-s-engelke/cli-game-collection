@@ -14,6 +14,11 @@ public class HumanPlayer implements Player {
     }
 
     @Override
+    public String toString(){
+        return "Human";
+    }
+
+    @Override
     public int[] chooseMove() {
         System.out.println("Player " + symbol + " please choose a field:");
         System.out.print("First, the line: ");

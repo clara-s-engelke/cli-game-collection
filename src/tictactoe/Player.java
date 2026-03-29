@@ -4,4 +4,5 @@ public interface Player {
 
     int[] chooseMove();
     char getSymbol();
+    String toString();
 }

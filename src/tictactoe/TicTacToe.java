@@ -3,7 +3,10 @@ package tictactoe;
 import game.Game;
 import ui.PlayerChoice;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 public class TicTacToe implements Game {
     char[][] board;
@@ -30,7 +33,10 @@ public class TicTacToe implements Game {
 
     @Override
     public void start() {
-        init();
+        boolean run = init();
+        if (!run) {
+            return;
+        }
         printInstructions();
         System.out.println("\n");
         while( !won && moves < 9){
@@ -69,7 +75,7 @@ public class TicTacToe implements Game {
         }
     }
 
-    private void init(){
+    private boolean init(){
         board = new char[3][3];
         won = false;
         moves = 0;
@@ -77,12 +83,18 @@ public class TicTacToe implements Game {
             Arrays.fill(chars, LEER);
         }
         player1 = new HumanPlayer('X', board, choice);
-        player2 = new HumanPlayer('O', board, choice);
+        Optional<Player> p2 = chooseOpp();
+        if (p2.isEmpty()) {
+            return false;
+        } else{
+            player2 = p2.get();
+        }
         if (Math.random() < 0.5) {
             current = player1;
         } else{
             current = player2;
         }
+        return true;
     }
 
     private void showBoard(){
@@ -93,6 +105,15 @@ public class TicTacToe implements Game {
             }
             System.out.println();
         }
+    }
+
+
+    private Optional<Player> chooseOpp(){
+        System.out.println("Who do you want as an opponent?");
+        List<Player> players = new ArrayList<>();
+        players.add(new HumanPlayer('O', board, choice));
+        players.add(new ComputerPlayer('O'));
+        return choice.choose(players);
     }
 
     private boolean makeMove(int[] field, char symbol){
