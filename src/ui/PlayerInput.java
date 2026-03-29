@@ -18,6 +18,17 @@ public class PlayerInput {
 			}
 		}
 	}
+
+	public int readInBounds(int min, int max){
+		while(true){
+			int num = readInt()-1;
+			if(inBounds(min, max, num)){
+				return num;
+			} else{
+				System.out.println("not a nimber");
+			}
+		}
+	}
 	
 //	public String readString() {
 //		String string = null;
@@ -26,6 +37,6 @@ public class PlayerInput {
 //	}
 	
 	public boolean inBounds(int min, int max, int num) {
-        return num >= min && num < max;
+        return num >= min && num <= max;
 	}
 }
