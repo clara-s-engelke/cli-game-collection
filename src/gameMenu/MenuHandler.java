@@ -1,36 +1,39 @@
 package gameMenu;
 
+import game.Game;
 import numberGuesser.NumberGuesser;
-import ui.Menus;
+import tictactoe.TicTacToe;
 import ui.PlayerChoice;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 public class MenuHandler {
-	private final NumberGuesser guesser;
+	private final List<Game> games;
 	private final PlayerChoice menu;
 	
 	
 	public MenuHandler(PlayerChoice menu) {
-		guesser = new NumberGuesser(menu);
+		games = new ArrayList<>();
+		games.add(new NumberGuesser(menu));
+		games.add(new TicTacToe(menu));
 		this.menu = menu;
 	}
 	
-	public String showMainMenu() {
-		return menu.choose(Menus.mainMenu());
+	public Optional<Game> showMainMenu() {
+		return menu.choose(games);
 	}
 	
-	public boolean menuLoop(String choice) {
-			switch (choice) {
-				case "Number Guesser" -> {
-					guesser.start();
-					return true;
-				}
-				case "Exit" -> {
-					return false;
-				}
-				default -> {
-					System.out.println("Error");
-					return false;
-				}
-			}
+	 public boolean menuLoop() {
+		Game game;
+		Optional<Game> choice = showMainMenu();
+		if (choice.isEmpty()) {
+			return false;
+		} else{
+			game = choice.get();
+			game.start();
+			return true;
+		}
 		}
 }

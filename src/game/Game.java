@@ -5,5 +5,6 @@ public interface Game {
     void reset();
     void start();
     void printInstructions();
+    String toString();
 
 }

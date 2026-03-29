@@ -6,6 +6,7 @@ import ui.PlayerChoice;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class NumberGuesser implements Game {
 	private final PlayerChoice player;
@@ -26,9 +27,14 @@ public class NumberGuesser implements Game {
 	}
 
 	@Override
+	public String toString(){
+		return "NUMBERGUESSER";
+	}
+
+	@Override
 	public void start() {
-		init();
-		if (difficulty == Difficulty.EXIT) {
+		boolean run = init();
+		if(!run){
 			return;
 		}
 		printInstructions();
@@ -52,11 +58,17 @@ public class NumberGuesser implements Game {
 
 	}
 
-	private void init(){
-		difficulty = setDifficulty();
+	private boolean init(){
+		Optional<Difficulty> diff = setDifficulty();
+		if (diff.isEmpty()) {
+			return  false;
+		} else{
+			difficulty = diff.get();
+		}
 		secretNum = (int) (Math.random()*(difficulty.getMaxNum()+1));
 		attempts = 0;
 		won = false;
+		return true;
 	}
 
 	private boolean isGameOver(){
@@ -114,10 +126,8 @@ public class NumberGuesser implements Game {
 	}
 
 //Util
-	private Difficulty setDifficulty(){
-		Difficulty difficulty;
-		difficulty = player.choose(List.of(Difficulty.values()));
-		return difficulty;
+	private Optional<Difficulty> setDifficulty(){
+		return player.choose(List.of(Difficulty.values()));
 	}
 
 	private boolean checkHighscore(){

@@ -4,8 +4,7 @@ public enum Difficulty {
     EASY(50, 15),
     NORMAL(100, 10),
     HARD(1000, 10),
-    IMPOSSIBLE(1000, 5),
-    EXIT(0,0);
+    IMPOSSIBLE(1000, 5);
 
     private final int maxNum;
     private final int maxTries;

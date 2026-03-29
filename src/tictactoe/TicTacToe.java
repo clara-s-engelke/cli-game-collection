@@ -20,6 +20,10 @@ public class TicTacToe implements Game {
     }
 
     @Override
+    public String toString(){
+        return "TICTACTOE";
+    }
+    @Override
     public void reset() {
 
     }

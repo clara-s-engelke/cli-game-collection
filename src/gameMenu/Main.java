@@ -11,8 +11,7 @@ public class Main {
         init();
         boolean running;
         do {
-            String choice = menu.showMainMenu();
-            running = menu.menuLoop(choice);
+            running = menu.menuLoop();
             System.out.println("\n----------\n");
         }while(running);
 
