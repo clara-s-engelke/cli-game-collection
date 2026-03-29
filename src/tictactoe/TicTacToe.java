@@ -9,17 +9,19 @@ import java.util.List;
 import java.util.Optional;
 
 public class TicTacToe implements Game {
-    char[][] board;
-    boolean won;
-    int moves;
-    final char LEER = '-';
-    PlayerChoice choice;
-    Player player1;
-    Player player2;
-    Player current;
+    private char[][] board;
+    private final int BOARD_SIZE;
+    private boolean won;
+    private int moves;
+    private final char LEER = '-';
+    private final PlayerChoice choice;
+    private Player player1;
+    private Player player2;
+    private Player current;
 
     public TicTacToe(PlayerChoice player){
         choice = player;
+        BOARD_SIZE = 3;
     }
 
     @Override
@@ -28,7 +30,10 @@ public class TicTacToe implements Game {
     }
     @Override
     public void reset() {
-
+        moves = 0;
+        won = false;
+        player2 = null;
+        current = null;
     }
 
     @Override
@@ -39,11 +44,11 @@ public class TicTacToe implements Game {
         }
         printInstructions();
         System.out.println("\n");
-        while( !won && moves < 9){
+        while( !won && moves < (BOARD_SIZE*BOARD_SIZE)){
             showBoard();
             boolean invalid;
             do {
-                int[] field = current.chooseMove();
+                Field field = current.chooseMove();
                 invalid = makeMove(field, current.getSymbol());
             }while(invalid);
             won = checkWon();
@@ -56,6 +61,7 @@ public class TicTacToe implements Game {
         } else{
             System.out.println("It's a tie - no winners today");
         }
+        reset();
     }
 
     @Override
@@ -65,9 +71,9 @@ public class TicTacToe implements Game {
         System.out.println("The one who first gets three in a row - horizontally, vertically or diagonally - wins");
         System.out.println("This is what the field looks like: ");
         int m = 1;
-        for(int i = 0; i<3; i++){
+        for(int i = 0; i<BOARD_SIZE; i++){
             System.out.print("| ");
-            for(int j = 0; j < 3; j++){
+            for(int j = 0; j < BOARD_SIZE; j++){
                 System.out.print( m + " | ");
                 m++;
             }
@@ -76,13 +82,13 @@ public class TicTacToe implements Game {
     }
 
     private boolean init(){
-        board = new char[3][3];
+        board = new char[BOARD_SIZE][BOARD_SIZE];
         won = false;
         moves = 0;
         for (char[] chars : board) {
             Arrays.fill(chars, LEER);
         }
-        player1 = new HumanPlayer('X', board, choice);
+        player1 = new HumanPlayer('X', BOARD_SIZE, choice);
         Optional<Player> p2 = chooseOpp();
         if (p2.isEmpty()) {
             return false;
@@ -111,14 +117,14 @@ public class TicTacToe implements Game {
     private Optional<Player> chooseOpp(){
         System.out.println("Who do you want as an opponent?");
         List<Player> players = new ArrayList<>();
-        players.add(new HumanPlayer('O', board, choice));
+        players.add(new HumanPlayer('O', BOARD_SIZE, choice));
         players.add(new ComputerPlayer('O'));
         return choice.choose(players);
     }
 
-    private boolean makeMove(int[] field, char symbol){
+    private boolean makeMove(Field field, char symbol){
         if(isEmpty(field)){
-            board[field[0]][field[1]] = symbol;
+            board[field.getRow()][field.getColumn()] = symbol;
             return false;
         } else{
             System.out.println("This field is not empty, please choose a different one");
@@ -126,8 +132,8 @@ public class TicTacToe implements Game {
         }
     }
 
-    private boolean isEmpty(int[] field){
-        return (board[field[0]][field[1]] == LEER);
+    private boolean isEmpty(Field field){
+        return (board[field.getRow()][field.getColumn()] == LEER);
     }
 
     private boolean checkWon(){

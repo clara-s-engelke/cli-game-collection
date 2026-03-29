@@ -2,7 +2,6 @@ package tictactoe;
 
 public interface Player {
 
-    int[] chooseMove();
+    Field chooseMove();
     char getSymbol();
-    String toString();
 }

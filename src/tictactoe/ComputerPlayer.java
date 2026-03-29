@@ -7,16 +7,15 @@ public class ComputerPlayer implements Player{
         this.symbol = symbol;
     }
 
-    @Override
     public String toString(){
         return "Computer";
     }
 
     @Override
-    public int[] chooseMove() {
+    public Field chooseMove() {
         int row = (int) (Math.random()*3);
         int col =(int) (Math.random()*3);
-        return (new int[]{row, col});
+        return new Field(row, col);
     }
 
     @Override
