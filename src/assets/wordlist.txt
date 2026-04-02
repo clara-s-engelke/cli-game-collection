@@ -1,0 +1,5 @@
+Animals:elephant,tiger,kangaroo,dolphin,penguin,giraffe,hamster,crocodile,owl,rabbit
+Food:pizza,banana,chocolate,sandwich,strawberry,pancake,cheese,burger,pasta,carrot
+Countries:germany,canada,brazil,japan,australia,egypt,france,india,norway,mexico
+Tech:keyboard,computer,internet,software,console,joystick,algorithm,database,server,network
+Everyday:backpack,umbrella,notebook,window,mirror,bicycle,pillow,camera,suitcase,clock
