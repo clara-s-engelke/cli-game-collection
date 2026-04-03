@@ -1,6 +1,7 @@
 package gameMenu;
 
 import game.Game;
+import hangman.Hangman;
 import numberGuesser.NumberGuesser;
 import tictactoe.TicTacToe;
 import ui.PlayerChoice;
@@ -18,6 +19,7 @@ public class MenuHandler {
 		games = new ArrayList<>();
 		games.add(new NumberGuesser(menu));
 		games.add(new TicTacToe(menu));
+		games.add(new Hangman(menu));
 		this.menu = menu;
 	}
 	
