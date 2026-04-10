@@ -5,6 +5,7 @@ import ui.PlayerChoice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class HangmanController {
     private final PlayerChoice pc;
@@ -20,13 +21,19 @@ public class HangmanController {
         art = new HangmanASCII();
     }
 
-    public void setWord(){
+    public boolean setWord(){
         wm.initWordList();
-        word = wm.chooseWord();
+        Optional<String> category = chooseCategory();
+        if(category.isEmpty()){
+            return false;
+        }
+        word = wm.chooseWord(String.valueOf(category.get()));
+        return true;
     }
 
-    public void setWord(String word){
-        this.word = word;
+    public Optional<String> chooseCategory(){
+        System.out.println("What category do you want?");
+        return pc.choose(wm.getCategories());
     }
 
     public char getPlayerGuess(){

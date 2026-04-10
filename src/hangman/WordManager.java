@@ -5,7 +5,9 @@ import java.util.*;
 
 public class WordManager {
     private BufferedReader f;
-    private Map<String, List<String>> categories;
+    private Map<String, List<String>> words;
+    private List<String> categories;
+
 
     public WordManager(String file){
         InputStream in = getClass().getClassLoader().getResourceAsStream(file);
@@ -14,18 +16,28 @@ public class WordManager {
 
     public void initWordList(){
         List<String> lines = readList();
-        categories = getCategories(lines);
+        words = getWordList(lines);
+        categories = new ArrayList<>(words.keySet());
+        categories.add("Surprise me!");
     }
 
-    public String chooseWord(){
-       List<String> allWords = new ArrayList<>();
+    public String chooseWord(String s){
+        String word = null;
+        if(words.get(s) != null){
+            List<String> possibleWords = words.get(s);
+            int index = (int) (Math.random()*(possibleWords.size()));
+            word = possibleWords.get(index);
+        } else if(s.equals(categories.getLast())){
+            List<String> allWords = new ArrayList<>();
 
-       for(List<String> words : categories.values()){
-           allWords.addAll(words);
-       }
+            for(List<String> words : words.values()){
+                allWords.addAll(words);
+            }
 
-       int index = (int) (Math.random()*(allWords.size())+1);
-       return allWords.get(index);
+            int index = (int) (Math.random()*(allWords.size()));
+            word = allWords.get(index);
+        }
+        return word;
     }
 
 
@@ -44,7 +56,7 @@ public class WordManager {
         return lines;
     }
 
-    private Map<String, List<String>> getCategories(List<String> lines){
+    private Map<String, List<String>> getWordList(List<String> lines){
         Map<String, List<String>> categories = new HashMap<>();
 
         for( String line : lines){
@@ -67,6 +79,10 @@ public class WordManager {
             categories.put(category, words);
         }
 
+        return categories;
+    }
+
+    public List<String> getCategories(){
         return categories;
     }
 }

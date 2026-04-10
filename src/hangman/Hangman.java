@@ -24,7 +24,10 @@ public class Hangman implements Game {
     @Override
     public void start() {
         init();
-        controller.setWord();
+        boolean noExit = controller.setWord();
+        if(!noExit){
+            return;
+        }
         while(gameState == State.RUNNING){
             controller.showStats(mistakes);
             char guess = controller.getPlayerGuess();
@@ -61,7 +64,7 @@ public class Hangman implements Game {
     public void init(){
         gameState = State.RUNNING;
         mistakes = 0;
-        maxMistakes = 10;
+        maxMistakes = 9;
         controller = new HangmanController(pc);
     }
 }
