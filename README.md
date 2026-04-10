@@ -4,15 +4,22 @@ This project was created to practice core programming concepts such as object-or
 
 ---
 ## ▶️ STATUS
-🚧 WORK IN PROGRESS 🚧
+⏸️ Finished but unreviewed ⏸️
+The project still contains bugs, however, it is a learning project and since I'm on a somewhat tight schedule, I'll leave its imperfections in for the moment.
 
 ---
 
 ## 💡 INCLUDED GAMES
-Games that are currently included and their features:
+Games that are currently included and their game-features:
 - Number Guesser
-  - numbers between 0 and 100
+  - different difficulties
   - hints on the number
+- Tic Tac Toe
+  - working tic tac toe field displaying the current state
+  - option to play against another human or the computer (random placement)
+- Hangman
+  - chooseable categories (including a "surprise me!"-category)
+  - displaying the current progress on the word, letters that have been used as well as ASCII-Art for the hangman
 
 ---
 
@@ -20,18 +27,35 @@ Games that are currently included and their features:
 ```text
 java-cli-games/
 └── src/
+    ├── assets
+    |    ├── HangmanASCII.java
+    | 	 └── wordlist.txt
+    ├── game
+    | 	└── Games
     ├── gameMenu
-    |   ├── Main
-    | 	└── MenuHandler
-    ├── games
-    |   └── NumberGuesser
+    |   ├── Main.java
+    | 	└── MenuHandler.java
+    ├── numberGuesser
+    |    ├── Difficulty.java
+    | 	 ├── GuessResult.java
+    |    ├── Highscore.java 
+    |    └── NumberGuesser.java
+    ├── hangman
+    |    ├── Hangman.java
+    | 	 ├── HangmanController.java
+    |    ├── State.java 
+    |    └── WordManager.java
+    ├── tictactoe
+    |    ├── ComputerPlayer.java
+    | 	 ├── Field.java
+    | 	 ├── HumanPlayer.java
+    |    ├── Player.java 
+    |    └── TicTacToe.java  
     ├── ui
-      	├── Menus
         ├── PlayerChoice
       	└── PlayerInput
 
 ```
-The structure may evolve as the project progresses
 
 ---
 
