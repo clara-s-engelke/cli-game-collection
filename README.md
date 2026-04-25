@@ -23,38 +23,21 @@ Games that are currently included and their game-features:
 
 ---
 
-## 📂 STRUCTURE
-```text
-java-cli-games/
-└── src/
-    ├── assets
-    |    ├── HangmanASCII.java
-    | 	 └── wordlist.txt
-    ├── game
-    | 	└── Games
-    ├── gameMenu
-    |   ├── Main.java
-    | 	└── MenuHandler.java
-    ├── numberGuesser
-    |    ├── Difficulty.java
-    | 	 ├── GuessResult.java
-    |    ├── Highscore.java 
-    |    └── NumberGuesser.java
-    ├── hangman
-    |    ├── Hangman.java
-    | 	 ├── HangmanController.java
-    |    ├── State.java 
-    |    └── WordManager.java
-    ├── tictactoe
-    |    ├── ComputerPlayer.java
-    | 	 ├── Field.java
-    | 	 ├── HumanPlayer.java
-    |    ├── Player.java 
-    |    └── TicTacToe.java  
-    ├── ui
-        ├── PlayerChoice
-      	└── PlayerInput
+## ▶️ Getting Started
 
+**Requirements:** Java 21 JDK
+
+**Setup:**
+1. Clone the repository or download and extract the ZIP file
+2. Navigate into the project folder
+
+**Run:**
+```bash
+# Compile
+javac -d bin src/**/*.java
+
+# Start
+java -cp bin gameMenu.Main
 ```
 
 ---
