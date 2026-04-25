@@ -4,8 +4,9 @@ This project was created to practice core programming concepts such as object-or
 
 ---
 ## ▶️ STATUS
-⏸️ Finished but unreviewed ⏸️
-The project still contains bugs, however, it is a learning project and since I'm on a somewhat tight schedule, I'll leave its imperfections in for the moment.
+✅ Finished
+
+This learning project is finished, although I am aware of its limitations and imperfections.
 
 ---
 
@@ -23,22 +24,41 @@ Games that are currently included and their game-features:
 
 ---
 
-## ▶️ Getting Started
+## ▶️ How to run
 
-**Requirements:** Java 21 JDK
+### Requirements
+- **Java 21 (JDK)** installed (`java -version` should show 21.x)
+- Any terminal (Windows Terminal / macOS Terminal / Linux shell)
 
-**Setup:**
-1. Clone the repository or download and extract the ZIP file
-2. Navigate into the project folder
-
-**Run:**
+### 1) Get the code
 ```bash
-# Compile
-javac -d bin src/**/*.java
+git clone https://github.com/clara-s-engelke/cli-game-collection.git
+cd cli-game-collection
+```
 
-# Start
+### 2) Compile
+This project uses plain `javac` (no Maven/Gradle yet).
+
+**macOS / Linux:**
+```bash
+mkdir -p bin
+find src -name "*.java" | xargs javac -d bin
+```
+
+**Windows (PowerShell):**
+```powershell
+New-Item -ItemType Directory -Force bin | Out-Null
+Get-ChildItem -Recurse -Filter *.java -Path src | ForEach-Object { $_.FullName } | javac -d bin @-
+```
+
+### 3) Run
+```bash
 java -cp bin gameMenu.Main
 ```
+
+### Troubleshooting
+- If you get `Could not find or load main class gameMenu.Main`, re-run the compile step and make sure you’re in the project root directory.
+- If `java -version` shows an older version, install **JDK 21** and try again.
 
 ---
 
