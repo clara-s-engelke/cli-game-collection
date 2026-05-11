@@ -71,8 +71,8 @@ Following tools are/were used in this repo:
 ---
 
 ## 📌 NOTES
-This project is part of me learning Java and the preparation for studying cs.
-The code/architecture is most likely flawed and will change as I learn new concepts.
-Any feedback or suggestions are more than welcome :)
+This is the first of six small projects I do ahead of starting my CS degree. As such, it is a learning project and mirrors my skills and
+and knowledge at that time.
+I am always happy about feedback and constructive criticism
 
 ---
